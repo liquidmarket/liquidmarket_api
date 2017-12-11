@@ -2,11 +2,11 @@ package liquidmarket
 
 import (
 	"net/http"
-	// "log"
+	"log"
     "database/sql"
 	"github.com/gorilla/mux"
     _ "github.com/go-sql-driver/mysql"
-    // "fmt"
+    "fmt"
 )
 
 type App struct {
@@ -15,12 +15,12 @@ type App struct {
 }
 
 func (a *App) Initialize(user, password, socket, dbname string) {
-    // connectionString := fmt.Sprintf("%s:%s@cloudsql(%s)/liquidmarket", user, password, dbname)
-	// var err error
-    // a.DB, err = sql.Open("mysql", connectionString)
-    // if err != nil {
-    //     log.Fatal(err)
-    // }
+    connectionString := fmt.Sprintf("%s:%s@cloudsql(%s)/%s", user, password, socket, dbname)
+	var err error
+    a.DB, err = sql.Open("mysql", connectionString)
+    if err != nil {
+        log.Fatal(err)
+    }
     a.Router = mux.NewRouter()
     a.initializeRoutes()
 }

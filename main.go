@@ -7,7 +7,7 @@ import (
 func init() {
 	a := App{} 
 
-	a.Initialize("", "", "", "")
+	a.Initialize("root", "podsaveamerica", "enhanced-emblem-188503:australia-southeast1:liquidmarket", "liquidmarket")
 
 	a.Run()
 }
