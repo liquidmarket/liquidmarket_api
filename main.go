@@ -5,7 +5,7 @@ import (
 )
 
 func init() {
-	http.HandleFunc("/", handler)
+	http.Handle("/", corsWrapper(http.HandlerFunc(handler)))
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
