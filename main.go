@@ -14,7 +14,7 @@ func init() {
 
 func handler(w http.ResponseWriter, r *http.Request) {
 	user := User{ 
-		ID: "111307193244795741281",
+		GoogleID: "111307193244795741281",
 		FirstName: "Thomas",
 		LastName: "Horrobin",
 		Email: "thomasroberthorrobin@gmail.com",

@@ -6,7 +6,7 @@ import (
 )
 
 type User struct {
-    ID    string    `json:"id"`
+    GoogleID    string    `json:"google_id"`
     FirstName  string `json:"first_name"`
     LastName  string `json:"last_name"`
     Email   string    `json:"email"`
@@ -22,7 +22,7 @@ func GetUsers(db *sql.DB) ([]User, error) {
     users := []User{}
     for rows.Next() {
         var u User
-        if err := rows.Scan(&u.ID, &u.FirstName, &u.LastName, &u.Email); err != nil {
+        if err := rows.Scan(&u.GoogleID, &u.FirstName, &u.LastName, &u.Email); err != nil {
             return nil, err
         }
         users = append(users, u)
