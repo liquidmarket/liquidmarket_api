@@ -5,7 +5,11 @@ import (
 )
 
 func init() {
-	http.Handle("/", corsWrapper(http.HandlerFunc(handler)))
+	a := App{} 
+
+	a.Initialize("", "", "", "")
+
+	a.Run()
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
