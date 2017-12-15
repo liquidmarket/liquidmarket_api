@@ -12,20 +12,8 @@ type User struct {
     Email   string    `json:"email"`
 }
 
-func GetUsers(db *sql.DB) ([]User, error) {
-    statement := fmt.Sprintf("SELECT google_id, first_name, last_name, email FROM users;")
-    rows, err := db.Query(statement)
-    if err != nil {
-        return nil, err
-    }
-    defer rows.Close()
-    users := []User{}
-    for rows.Next() {
-        var u User
-        if err := rows.Scan(&u.GoogleID, &u.FirstName, &u.LastName, &u.Email); err != nil {
-            return nil, err
-        }
-        users = append(users, u)
-    }
-    return users, nil
+func (u *User) UpdateUser(db *sql.DB) error {
+    statement := fmt.Sprintf("CALL update_user('%s', '%s', '%s', '%s')", u.GoogleID, u.FirstName, u.LastName, u.Email)
+    _, err := db.Exec(statement)
+    return err
 }
