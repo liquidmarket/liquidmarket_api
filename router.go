@@ -9,4 +9,5 @@ func (a *App) initializeRoutes() {
 	a.Router.HandleFunc("/accounts/{uuid}", a.updateAccount).Methods("PUT")
 	a.Router.HandleFunc("/accounts/{uuid}", a.deleteAccount).Methods("DELETE")
 	a.Router.HandleFunc("/prices", a.getPrices).Methods("GET")
+	a.Router.HandleFunc("/accounts/{uuid}/shareholdings", a.getShareholdings).Methods("GET")
 }
