@@ -1,9 +1,11 @@
-package liquidmarket
+package main
 
-func init() {
-	a := App{} 
+import "./liquidmarket"
 
-	a.Initialize("root", "podsaveamerica", "enhanced-emblem-188503:australia-southeast1:liquidmarket", "liquidmarket")
-	
-	a.Run()
+func main() {
+	a := liquidmarket.App{}
+
+	a.Initialize("root", "podsaveamerica", "enhanced-emblem-188503:australia-southeast1:liquidmarket", "liquidmarket", true)
+
+	a.RunLocal(":8080")
 }
