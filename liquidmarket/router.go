@@ -1,7 +1,7 @@
 package liquidmarket
 
 func (a *App) initializeRoutes() {
-	a.Router.HandleFunc("/", a.getAccounts).Methods("GET")
+	a.Router.HandleFunc("/", a.getAccountsOrCreateUser).Methods("GET")
 	a.Router.HandleFunc("/users", a.updateUser).Methods("PUT")
 	a.Router.HandleFunc("/accounts", a.getAccounts).Methods("GET")
 	a.Router.HandleFunc("/accounts", a.createAccount).Methods("POST")
