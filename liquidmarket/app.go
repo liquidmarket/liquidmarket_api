@@ -36,6 +36,6 @@ func (a *App) Run() {
 }
 
 func (a *App) RunLocal(addr string) {
-	fmt.Println("running on localhost:" + addr + " (hopefully)")
+	fmt.Println("running on localhost" + addr + " (hopefully)")
 	log.Fatal(http.ListenAndServe(addr, corsWrapper(a.Router)))
 }
