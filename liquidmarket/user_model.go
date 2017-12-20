@@ -15,13 +15,13 @@ type User struct {
 }
 
 func (u *User) UpdateUser(db *sql.DB) error {
-	statement := fmt.Sprintf("CALL update_user('%s', '%s', '%s', '%s')", u.GoogleID, u.FirstName, u.LastName, u.Email)
+	statement := fmt.Sprintf("CALL user_update('%s', '%s', '%s', '%s')", u.GoogleID, u.FirstName, u.LastName, u.Email)
 	_, err := db.Exec(statement)
 	return err
 }
 
 func (u *User) getAccountsOrCreate(db *sql.DB) ([]Account, error) {
-	statement := fmt.Sprintf("CALL create_user('%s', '%s', '%s', '%s')", u.GoogleID, u.FirstName, u.LastName, u.Email)
+	statement := fmt.Sprintf("CALL user_create('%s', '%s', '%s', '%s')", u.GoogleID, u.FirstName, u.LastName, u.Email)
 	rows, err := db.Query(statement)
 	if err != nil {
 		return nil, err
