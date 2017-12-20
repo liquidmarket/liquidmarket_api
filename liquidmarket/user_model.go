@@ -20,6 +20,11 @@ func (u *User) UpdateUser(db *sql.DB) error {
 	return err
 }
 
+func (u *User) GetUser(db *sql.DB) error {
+	statement := fmt.Sprintf("SELECT first_name, last_name, email FROM users WHERE google_id = '%s'", u.GoogleID)
+	return db.QueryRow(statement).Scan(&u.FirstName, &u.LastName, &u.Email)
+}
+
 func (u *User) getAccountsOrCreate(db *sql.DB) ([]Account, error) {
 	statement := fmt.Sprintf("CALL user_create('%s', '%s', '%s', '%s')", u.GoogleID, u.FirstName, u.LastName, u.Email)
 	rows, err := db.Query(statement)
