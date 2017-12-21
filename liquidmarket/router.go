@@ -12,4 +12,8 @@ func (a *App) initializeRoutes() {
 	a.Router.HandleFunc("/prices", a.getPrices).Methods("GET")
 	a.Router.HandleFunc("/accounts/{uuid}/shareholdings", a.getShareholdings).Methods("GET")
 	a.Router.HandleFunc("/trades", a.getTrades).Methods("GET")
+	a.Router.HandleFunc("/addresses", a.getAddresses).Methods("GET")
+	a.Router.HandleFunc("/addresses", a.createAddress).Methods("POST")
+	a.Router.HandleFunc("/addresses/{uuid}", a.updateAddress).Methods("PUT")
+	a.Router.HandleFunc("/addresses/{uuid}", a.deleteAddress).Methods("DELETE")
 }
