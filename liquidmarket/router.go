@@ -16,4 +16,5 @@ func (a *App) initializeRoutes() {
 	a.Router.HandleFunc("/addresses", a.createAddress).Methods("POST")
 	a.Router.HandleFunc("/addresses/{uuid}", a.updateAddress).Methods("PUT")
 	a.Router.HandleFunc("/addresses/{uuid}", a.deleteAddress).Methods("DELETE")
+	a.Router.HandleFunc("/offers", a.submitOffer).Methods("POST")
 }
