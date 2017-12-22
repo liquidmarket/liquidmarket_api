@@ -4,8 +4,8 @@ import (
 	"net/http"
 )
 
-func (a *App) getPrices(w http.ResponseWriter, r *http.Request) {
-	users, err := GetListingsWithPrices(a.DB)
+func (a *App) getMarkets(w http.ResponseWriter, r *http.Request) {
+	users, err := GetMarkets(a.DB)
 	if err != nil {
 		respondWithError(w, http.StatusInternalServerError, err.Error())
 		return
