@@ -40,7 +40,7 @@ func GetListingsWithPrices(db *sql.DB) ([]Listing, error) {
 		if err := rows.Scan(&m.ID, &m.OrganisationName, &m.ShortName, &m.TotalShares, &m.BuyPrice, &m.SellPrice, &m.Price, &m.Spread); err != nil {
 			return nil, err
 		}
-		priceQuery := fmt.Sprintf("SELECT marketmaker_id, price, spread, offered_at FROM offers WHERE market_id = %d ORDER BY offered_at DESC LIMIT 100", m.ID)
+		priceQuery := fmt.Sprintf("SELECT marketmaker_id, price, spread, offered_at FROM offers WHERE market_id = %d ORDER BY offered_at DESC LIMIT 30", m.ID)
 		////
 		priceQueryRows, err := db.Query(priceQuery)
 		if err != nil {
