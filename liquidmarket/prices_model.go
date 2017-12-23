@@ -9,15 +9,17 @@ import (
 )
 
 type Listing struct {
-	ID               int     `json:"id"`
-	OrganisationName string  `json:"organisation_name"`
-	ShortName        string  `json:"short_name"`
-	TotalShares      int     `json:"total_shares"`
-	Price            float32 `json:"price"`
-	Spread           float32 `json:"spread"`
-	BuyPrice         float32 `json:"buy_price"`
-	SellPrice        float32 `json:"sell_price"`
-	Prices           []Price `json:"prices"`
+	ID               int       `json:"id"`
+	OrganisationName string    `json:"organisation_name"`
+	ShortName        string    `json:"short_name"`
+	MarketMakerID    uuid.UUID `json:"market_maker_id"`
+	MarketMakerName  string    `json:"market_maker_name"`
+	TotalShares      int       `json:"total_shares"`
+	Price            float32   `json:"price"`
+	Spread           float32   `json:"spread"`
+	BuyPrice         float32   `json:"buy_price"`
+	SellPrice        float32   `json:"sell_price"`
+	Prices           []Price   `json:"prices"`
 }
 
 type Price struct {
@@ -28,7 +30,7 @@ type Price struct {
 }
 
 func GetListingsWithPrices(db *sql.DB) ([]Listing, error) {
-	statement := fmt.Sprintf("SELECT m.id, o.`name`, m.`shortname`, m.`total`, off.`price` + off.spread as 'buy', off.`price` - off.spread as 'sell', off.`price`, off.spread  FROM markets AS m JOIN organisations AS o ON m.`organisation_id` = o.id JOIN offers AS off ON m.`latest_offer_id` = off.id;")
+	statement := fmt.Sprintf("SELECT m.id, o.`name`, m.`shortname`, m.market_maker_id, mm.name, m.`total`, off.`price` + off.spread as 'buy', off.`price` - off.spread as 'sell', off.`price`, off.spread  FROM markets AS m JOIN organisations AS o ON m.`organisation_id` = o.id JOIN offers AS off ON m.`latest_offer_id` = off.id JOIN marketmakers AS mm ON mm.id = m.market_maker_id;")
 	rows, err := db.Query(statement)
 	if err != nil {
 		return nil, err
@@ -37,7 +39,7 @@ func GetListingsWithPrices(db *sql.DB) ([]Listing, error) {
 	listings := []Listing{}
 	for rows.Next() {
 		var m Listing
-		if err := rows.Scan(&m.ID, &m.OrganisationName, &m.ShortName, &m.TotalShares, &m.BuyPrice, &m.SellPrice, &m.Price, &m.Spread); err != nil {
+		if err := rows.Scan(&m.ID, &m.OrganisationName, &m.ShortName, &m.MarketMakerID, &m.MarketMakerName, &m.TotalShares, &m.BuyPrice, &m.SellPrice, &m.Price, &m.Spread); err != nil {
 			return nil, err
 		}
 		priceQuery := fmt.Sprintf("SELECT marketmaker_id, price, spread, offered_at FROM offers WHERE market_id = %d ORDER BY offered_at DESC LIMIT 30", m.ID)
