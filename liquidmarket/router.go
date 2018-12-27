@@ -8,6 +8,7 @@ func (a *App) initializeRoutes() {
 	a.Router.HandleFunc("/prices", a.getPrices).Methods("GET")
 	a.Router.HandleFunc("/markets", a.getMarkets).Methods("GET")
 	a.Router.HandleFunc("/trades", a.getTrades).Methods("GET")
+	a.Router.HandleFunc("/trades", a.submitTrade).Methods("POST")
 
 	a.Router.HandleFunc("/accounts", a.getAccounts).Methods("GET")
 	a.Router.HandleFunc("/accounts", a.createAccount).Methods("POST")
